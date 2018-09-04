@@ -1,0 +1,32 @@
+\name{residuals.CARBayes}
+\alias{residuals.CARBayes}
+
+
+\title{
+    Extract the residuals from a model.
+}
+\description{
+    This function takes a CARBayes object and returns a set of residuals. 
+    The allowable types of residual are "response" (raw) or "pearson" (the default). 
+}
+
+\usage{
+    \method{residuals}{CARBayes}(object, type, \dots)
+}
+
+
+
+\arguments{
+    \item{object}{
+        A CARBayes fitted model object.
+    }
+    \item{type}{
+        A text string and one of "response" or "pearson".
+    }
+    \item{\dots}{
+        Ignored.
+    }
+}
+\author{
+    Duncan Lee
+}
