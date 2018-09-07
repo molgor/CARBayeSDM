@@ -448,7 +448,7 @@ summary.results[ , 4:7] <- round(summary.results[ , 4:7], 1)
 
 
 ## Create the fitted values and residuals
-fitted.values <- apply(samples.fitted, 2, median)
+fitted.values <- apply(samples.fitted, 2, mean)
 response.residuals <- as.numeric(Y) - fitted.values
 pearson.residuals <- response.residuals /sqrt(fitted.values * (1 - mean.prob))
 residuals <- data.frame(response=response.residuals, pearson=pearson.residuals)

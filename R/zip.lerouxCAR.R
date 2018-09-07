@@ -481,15 +481,15 @@ names(accept.final) <- c("beta", "phi", "rho", "tau2", "delta")
 #### Compute the fitted deviance
 mean.beta <- apply(samples.beta, 2, mean)
 mean.phi <- apply(samples.phi, 2, mean)
-median.lp <- X.standardised %*% mean.beta  + mean.phi + offset
-median.fitted <- exp(median.lp)
-median.Z <- round(apply(samples.Z,2,median))
-median.delta <- apply(samples.delta, 2, median)
-median.omega <- exp(V.standardised %*% median.delta + offset.omega) / (1+exp(V.standardised %*% median.delta + offset.omega))
+mean.lp <- X.standardised %*% mean.beta  + mean.phi + offset
+mean.fitted <- exp(mean.lp)
+mean.Z <- round(apply(samples.Z,2,mean))
+mean.delta <- apply(samples.delta, 2, mean)
+mean.omega <- exp(V.standardised %*% mean.delta + offset.omega) / (1+exp(V.standardised %*% mean.delta + offset.omega))
 temp <- rep(0,K)
-temp[median.Z==1] <- log(median.omega[median.Z==1])
-median.deviance.all <- temp + (1-median.Z) * (log(1-median.omega) + dpois(x=as.numeric(Y), lambda=median.fitted, log=T))
-deviance.fitted <- -2 * sum(median.deviance.all, na.rm=TRUE)  
+temp[mean.Z==1] <- log(mean.omega[mean.Z==1])
+mean.deviance.all <- temp + (1-mean.Z) * (log(1-mean.omega) + dpois(x=as.numeric(Y), lambda=mean.fitted, log=T))
+deviance.fitted <- -2 * sum(mean.deviance.all, na.rm=TRUE)  
 
 
 #### Model fit criteria
@@ -537,7 +537,7 @@ summary.results[ , 4:7] <- round(summary.results[ , 4:7], 1)
     
     
 #### Create the Fitted values and residuals
-fitted.values <- apply(samples.fitted, 2, median)
+fitted.values <- apply(samples.fitted, 2, mean)
 response.residuals <- as.numeric(Y) - fitted.values
 pearson.residuals <- response.residuals /sqrt(fitted.values)
 residuals <- data.frame(response=response.residuals, pearson=pearson.residuals)

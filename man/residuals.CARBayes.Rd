@@ -6,8 +6,9 @@
     Extract the residuals from a model.
 }
 \description{
-    This function takes a CARBayes object and returns a set of residuals. 
-    The allowable types of residual are "response" (raw) or "pearson" (the default). 
+    This function takes a CARBayes object and returns a set of residuals. The 
+    allowable types of residual are "response" (raw) or "pearson" (the default).
+    In each case the fitted values are based on posterior means.
 }
 
 \usage{
@@ -21,7 +22,8 @@
         A CARBayes fitted model object.
     }
     \item{type}{
-        A text string and one of "response" or "pearson".
+        A text string and one of "response" or "pearson". If this
+        argument is omitted the default is "pearson".
     }
     \item{\dots}{
         Ignored.

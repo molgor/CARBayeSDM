@@ -7,7 +7,7 @@ residuals <- object$residuals
 
     if(class(residuals)=="list")
     {
-    #### Return one of three types of residuals
+    #### Return one of two types of residuals
         if(type=="response")
         {
         return(residuals$response)
@@ -21,7 +21,7 @@ residuals <- object$residuals
         
     }else
     {
-    #### Return one of three types of residuals
+    #### Return one of two types of residuals
         if(type=="response")
         {
         return(residuals$response)

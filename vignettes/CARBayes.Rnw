@@ -364,7 +364,7 @@ When a model has run \pkg{CARBayes} has the following summary extractor function
 \item \code{logLik()} - returns the estimated loglikelihood.
 \item \code{model.matrix()} - returns the design matrix of covariates.
 \item \code{print()} - prints a summary of the fitted model to the screen, including both parameter summaries and convergence diagnostics for the MCMC run.
-\item \code{residuals()} - returns either the ``response" (raw) or ``pearson", residuals from the model (based on posterior medians).
+\item \code{residuals()} - returns either the ``response" (raw) or ``pearson", residuals from the model (based on posterior means).
 \end{itemize}
 
 Additionally, \pkg{CARBayes} has functions \code{summarise.samples()} and \code{summarise.lincomb()} to summarise the results, and both functions are illustrated in the examples that follow. The software updates the user on its progress to the \proglang{R} console, which allows the user to monitor the function's progress. However, using the \code{verbose=FALSE} option will disable this feature. Once run, each model returns a list object with the following components. 

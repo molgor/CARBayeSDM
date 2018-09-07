@@ -306,7 +306,7 @@ summary.results[ , 4:7] <- round(summary.results[ , 4:7], 1)
     
     
 #### Create the fitted values and residuals
-fitted.values <- matrix(apply(samples.fitted, 2, median), nrow=K, ncol=J, byrow=T)
+fitted.values <- matrix(apply(samples.fitted, 2, mean), nrow=K, ncol=J, byrow=T)
 response.residuals <- Y - fitted.values
 var.y <- fitted.values * (1-fitted.values /  trials)
 ## Pearson is (observed - fitted) / sd

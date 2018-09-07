@@ -379,7 +379,7 @@ names(accept.final) <- c("beta", "phi", "nu2", "Sigma", "rho")
 mean.beta <- matrix(apply(samples.beta, 2, mean), nrow=p, ncol=J, byrow=F)
 mean.phi <- matrix(apply(samples.phi, 2, mean), nrow=K, ncol=J, byrow=T)
 fitted.mean <- X.standardised %*% mean.beta + mean.phi + offset
-nu2.mean <- apply(samples.nu2,2,median)
+nu2.mean <- apply(samples.nu2,2,mean)
 deviance.fitted <- -2 * sum(dnorm(as.numeric(t(Y)), mean = as.numeric(t(fitted.mean)), sd = sqrt(nu2.mean[rep(1:J,K)]), log = TRUE), na.rm=TRUE)
 
     
@@ -454,7 +454,7 @@ colnames(summary.beta) <- c("Median", "2.5%", "97.5%", "n.sample", "% accept", "
     
     
 #### Create the fitted values and residuals
-fitted.values <- matrix(apply(samples.fitted, 2, median), nrow=K, ncol=J, byrow=T)
+fitted.values <- matrix(apply(samples.fitted, 2, mean), nrow=K, ncol=J, byrow=T)
 response.residuals <- Y - fitted.values
 nu.mat <- matrix(rep(sqrt(nu2.mean), K), nrow=K, byrow=T)
 pearson.residuals <- response.residuals / nu.mat

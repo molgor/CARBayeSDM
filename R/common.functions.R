@@ -403,7 +403,7 @@ common.frame.localised <- function(formula, data, family, trials)
 }
 
 
-# Compute the WAIC and LMPL
+# Compute the DIC. WAIC,LMPL and loglikelihood
 common.modelfit <- function(samples.like, deviance.fitted)
 {
     #### WAIC
