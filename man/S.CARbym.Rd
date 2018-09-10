@@ -9,23 +9,27 @@ have a BYM conditional autoregressive prior.
 
 \description{
 Fit a spatial generalised linear mixed model to areal unit data, where the response
-variable can be binomial, or Poisson. Note, a Gaussian likelihood is not allowed 
-because of a lack of identifiability among the parameters. The linear predictor is 
-modelled by known covariates and 2 vectors of random effects. The latter are modelled 
-by the BYM conditional autoregressive prior proposed by Besag et al. (1991), and 
-further details are given in the vignette accompanying this package. Inference is 
-conducted in a Bayesian setting using Markov chain Monte Carlo (MCMC) simulation.
-Missing (NA) values are allowed in the response, and posterior predictive distributions
-are created for the missing values using data augmentation. These are saved in the
-"samples" argument in the output of the function and are denoted by "Y". For a full 
-model specification see the vignette accompanying this package.
+variable can be binomial, Poisson, or zero-inflated Poisson (ZIP). 
+Note, a Gaussian likelihood is not allowed because of a lack of identifiability 
+among the parameters. The linear predictor is modelled by known covariates and 2 
+vectors of random effects. The latter are modelled by the BYM conditional 
+autoregressive prior proposed by Besag et al. (1991), and further details are 
+given in the vignette accompanying this package. Inference is conducted in a 
+Bayesian setting using Markov chain Monte Carlo (MCMC) simulation. Missing (NA) 
+values are allowed in the response, and posterior predictive distributions are 
+created for the missing values using data augmentation. These are saved in the
+"samples" argument in the output of the function and are denoted by "Y". For 
+the ZIP model covariates can be used to estimate the probability of an observation 
+being a structural zero, via a logistic regression equation. For a full model 
+specification see the vignette accompanying this package.
 }
 
 
 \usage{
-S.CARbym(formula, family, data=NULL, trials=NULL, W, burnin, n.sample, 
-thin=1, prior.mean.beta=NULL, prior.var.beta=NULL,  prior.tau2=NULL, 
-prior.sigma2=NULL, MALA=TRUE, verbose=TRUE)
+S.CARbym(formula, formula.omega=NULL, family, data=NULL, trials=NULL, W, burnin, 
+n.sample, thin=1, prior.mean.beta=NULL, prior.var.beta=NULL,  prior.tau2=NULL, 
+prior.sigma2=NULL, prior.mean.delta=NULL, prior.var.delta=NULL, MALA=TRUE, 
+verbose=TRUE)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -36,10 +40,16 @@ lm() function. Offsets can be included here using the offset() function. The
 response, offset and each covariate are vectors of length K*1. The response can 
 contain missing (NA) values.  
 }
+  \item{formula.omega}{
+A one-sided formula object with no response variable (left side of the "~") 
+needed, specifying the covariates in the logistic regression model for 
+modelling the probability of an observation being a structural zero. Each 
+covariate (or an offset) needs to be a vector of length K*1.
+}
   \item{family}{
-One of either "binomial" or "poisson", which respectively specify a 
-binomial likelihood model with a logistic link function, or a Poisson likelihood 
-model with a log link function. 
+One of either "binomial","poisson" or "zip", which respectively specify a binomial 
+likelihood model with a logistic link function, a Poisson likelihood model with a 
+log link function, or a zip model with a log link function. 
 }
   \item{data}{
 An optional data.frame containing the  variables in the formula.
@@ -80,7 +90,17 @@ prior for tau2. Defaults to c(1, 0.01).
 The prior shape and scale in the form of c(shape, scale) for an Inverse-Gamma(shape, scale)
 prior for sigma2. Defaults to c(1, 0.01).  
 }
-    \item{MALA}{
+  \item{prior.mean.delta}{
+A vector of prior means for the regression parameters delta (Gaussian priors are 
+assumed) for the zero probability logistic regression component of the model. 
+Defaults to a vector of zeros.
+}
+  \item{prior.var.delta}{
+A vector of prior variances for the regression parameters delta (Gaussian priors 
+are assumed) for the zero probability logistic regression component of the model. 
+Defaults to a vector with values 100000.
+}
+\item{MALA}{
 Logical, should the function use MALA (TRUE, default) or simple random walk (FALSE) 
 updates for the random effects.
 }

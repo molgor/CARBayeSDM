@@ -30,10 +30,10 @@ grant ES/K006460/1, Innovate UK / Natural Environment Research Council (NERC)
 grant NE/N007352/1 and the TB Alliance. Version 5.1 has a  number of changes to 
 version 5.0, including: (i) Multinomial and ZIP data models with either no random 
 effects or random effects modelled by the Leroux CAR prior. For the multinomial 
-model the latter is an MCAR model; (ii) An MCAR model for a Gaussian  data 
-likelihood; (iii) The use of data augmentation to account for missing values in 
-the respone variable; and (iv) An updated vignette using the leaflet package for 
-interactive mapping.
+model the latter is an MCAR model; (ii) a ZIP data model with the BYM CAR prior;
+(iii) An MCAR model for a Gaussian  data likelihood; (iv) The use of data 
+augmentation to account for missing values in the respone variable; and (v) 
+An updated vignette using the leaflet package for interactive mapping.
 }
 
 \details{

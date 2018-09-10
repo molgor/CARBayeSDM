@@ -19,6 +19,10 @@ using namespace Rcpp;
 // poissoncarupdateRW - update random effects in the poisson model using RW
 // poissonindepupdateMALA - update the independent effects in the poisson model using MALA
 // poissonindepupdateRW - update the independent effects in the poisson model using RW
+// zipcarupdateRW - update the random effects in the zip models using RW
+// zipcarupdateMALA - update the random effects in the zip models using MALA
+// zipindepupdateRW - update the independent random effects in the zip models using RW
+// zipindepupdateMALA - update the independent random effects in the zip models using MALA
 // gaussiancarupdate - update random effects in the Gaussian model
 // binomialmcarupdateMALA - update random effects in the binomial MCAR model using MALA
 // binomialmcarupdateRW - update random effects in the binomial MCAR model using RW
@@ -1070,6 +1074,128 @@ List zipcarupdateMALA(NumericMatrix Wtriplet, NumericMatrix Wbegfin,
     out[1] = accept;
     return out;
 }
+
+
+
+
+// [[Rcpp::export]]
+List zipindepupdateRW(const int nsites, NumericVector theta, double sigma2, const NumericVector y, 
+                      const double theta_tune, NumericVector offset, NumericVector poiind)
+{
+    // Update the spatially correlated random effects 
+    //Create new objects
+    int accept=0;
+    double acceptance;
+    double oldpriorbit, newpriorbit, oldlikebit, newlikebit;
+    double proptheta, lpold, lpnew;
+    NumericVector thetanew(nsites);
+    
+    
+    //  Update each random effect in turn
+    thetanew = theta;
+    
+    for(int j = 0; j < nsites; j++)
+    {
+        // Different updates depending on whether the y[j] is missing or not.
+        if(poiind[j]==1)
+        {
+            // propose a value
+            proptheta = rnorm(1, thetanew[j], theta_tune)[0];
+            
+            // Accept or reject it
+            // Full conditional ratio
+            newpriorbit = (0.5/sigma2) * pow(proptheta, 2); 
+            oldpriorbit = (0.5/sigma2) * pow(thetanew[j], 2);
+            lpold = offset[j] + thetanew[j];
+            lpnew = offset[j] + proptheta;
+            oldlikebit = y[j] * lpold - exp(lpold);
+            newlikebit = y[j] * lpnew - exp(lpnew);
+            acceptance = exp(oldpriorbit - newpriorbit - oldlikebit + newlikebit);
+            
+            // Acceptace or reject the proposal
+            if(runif(1)[0] <= acceptance) 
+            {
+                thetanew[j] = proptheta;
+                accept = accept + 1;
+            }
+            else
+            { 
+            }    
+        }else
+        {
+            thetanew[j] = rnorm(1, 0, sqrt(sigma2))[0];    
+        }
+    }
+    
+    
+    List out(2);
+    out[0] = thetanew;
+    out[1] = accept;
+    return out;
+}
+
+
+// [[Rcpp::export]]
+List zipindepupdateMALA(const int nsites, NumericVector theta, double sigma2, const NumericVector y, 
+                       const double theta_tune, NumericVector offset, NumericVector poiind)
+{
+    // Update the spatially correlated random effects 
+    //Create new objects
+    int accept=0;
+    double acceptance, acceptance1, acceptance2, mala_old, mala_new;
+    double oldpriorbit, newpriorbit, oldlikebit, newlikebit;
+    double proptheta, lpold, lpnew;
+    NumericVector thetanew(nsites);
+    
+    
+    //  Update each random effect in turn
+    thetanew = theta;
+    
+    for(int j = 0; j < nsites; j++)
+    {
+    // Different updates depending on whether the y[j] is missing or not.
+        if(poiind[j]==1)
+        {
+            // propose a value
+            mala_old = thetanew[j] + 0.5 * pow(theta_tune, 2) * (y[j] - exp(thetanew[j] + offset[j]) - thetanew[j] / sigma2);
+            proptheta = rnorm(1, mala_old, theta_tune)[0];
+
+            // Accept or reject it
+            // Full conditional ratio
+            newpriorbit = (0.5/sigma2) * pow(proptheta, 2); 
+            oldpriorbit = (0.5/sigma2) * pow(thetanew[j], 2);
+            lpold = offset[j] + thetanew[j];
+            lpnew = offset[j] + proptheta;
+            oldlikebit = y[j] * lpold - exp(lpold);
+            newlikebit = y[j] * lpnew - exp(lpnew);
+            acceptance1 = exp(oldpriorbit - newpriorbit - oldlikebit + newlikebit);
+            
+            // Proposal distribution ratio
+            mala_new = proptheta + 0.5 * pow(theta_tune, 2) * (y[j] - exp(proptheta + offset[j]) - proptheta / sigma2);
+            acceptance2 = exp(-(0.5 / pow(theta_tune, 2)) * (pow((thetanew[j] - mala_new),2) - pow((proptheta-mala_old),2)));
+            acceptance = acceptance1 * acceptance2;
+            
+            // Acceptace or reject the proposal
+            if(runif(1)[0] <= acceptance) 
+            {
+                thetanew[j] = proptheta;
+                accept = accept + 1;
+            }
+            else
+            { 
+            }    
+        }else
+        {
+            thetanew[j] = rnorm(1, 0, sqrt(sigma2))[0];    
+        }
+    }
+    
+    List out(2);
+    out[0] = thetanew;
+    out[1] = accept;
+    return out;
+}
+
 
 
 

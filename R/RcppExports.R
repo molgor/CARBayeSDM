@@ -65,6 +65,14 @@ zipcarupdateMALA <- function(Wtriplet, Wbegfin, Wtripletsum, nsites, phi, tau2, 
     .Call(`_CARBayes_zipcarupdateMALA`, Wtriplet, Wbegfin, Wtripletsum, nsites, phi, tau2, y, phi_tune, rho, offset, poiind)
 }
 
+zipindepupdateRW <- function(nsites, theta, sigma2, y, theta_tune, offset, poiind) {
+    .Call(`_CARBayes_zipindepupdateRW`, nsites, theta, sigma2, y, theta_tune, offset, poiind)
+}
+
+zipindepupdateMALA <- function(nsites, theta, sigma2, y, theta_tune, offset, poiind) {
+    .Call(`_CARBayes_zipindepupdateMALA`, nsites, theta, sigma2, y, theta_tune, offset, poiind)
+}
+
 gaussiancarupdate <- function(Wtriplet, Wbegfin, Wtripletsum, nsites, phi, tau2, rho, nu2, offset) {
     .Call(`_CARBayes_gaussiancarupdate`, Wtriplet, Wbegfin, Wtripletsum, nsites, phi, tau2, rho, nu2, offset)
 }

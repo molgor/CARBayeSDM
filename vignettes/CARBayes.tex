@@ -36,6 +36,7 @@ This is a vignette for the \proglang{R} package \pkg{CARBayes} version 5.1, and 
 
 \begin{enumerate}
 \item Multinomial and ZIP data models with either no random effects or random effects modelled by the Leroux CAR prior. For the multinomial model the latter is an MCAR model.
+\item A ZIP model with the BYM CAR prior.
 \item An MCAR model for a Gaussian  data likelihood.
 \item The use of data augmentation to account for missing values in the respone variable.
 \item An updated vignette using the \pkg{leaflet} package for mapping.
@@ -126,7 +127,7 @@ In the binomial model above $n_k$ is the number of trials in the $k$th area, whi
 \begin{itemize}
 \item \code{S.glm()} - fits a model with no random effects and thus is a generalised linear model. This model can be implemented with binomial, Gaussian, Poisson and ZIP data likelihoods.
 
-\item \code{S.CARbym()} - fits the convolution or Besag-York-Mollie (BYM) CAR model outlined in \cite{besag1991}. This model can be implemented with binomial, Gaussian, and Poisson data likelihoods.
+\item \code{S.CARbym()} - fits the convolution or Besag-York-Mollie (BYM) CAR model outlined in \cite{besag1991}. This model can be implemented with binomial, Poisson and zip data likelihoods.
 
 \item \code{S.CARleroux()} - fits the CAR model proposed by \cite{leroux2000}. This model can also fit the intrinsic CAR model proposed by \cite{besag1991}, as well as a model with independent random effects. This model can be implemented with binomial, Gaussian, Poisson and ZIP data likelihoods.
 

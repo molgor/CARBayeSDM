@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.19)  7 SEP 2018 15:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.19)  10 SEP 2018 10:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -347,26 +347,26 @@ Environment Schunk is already defined, stay with former definition)
 (./CARBayes.aux)
 \openout1 = `CARBayes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 64.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 64.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 65.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -399,7 +399,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box28
-Package hyperref Info: Link coloring ON on input line 64.
+Package hyperref Info: Link coloring ON on input line 65.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -409,42 +409,41 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count107
 )
-LaTeX Info: Redefining \ref on input line 64.
-LaTeX Info: Redefining \pageref on input line 64.
-LaTeX Info: Redefining \nameref on input line 64.
+LaTeX Info: Redefining \ref on input line 65.
+LaTeX Info: Redefining \pageref on input line 65.
+LaTeX Info: Redefining \nameref on input line 65.
 
 (./CARBayes.out) (./CARBayes.out)
 \@outlinefile=\write4
 \openout4 = `CARBayes.out'.
 
-LaTeX Font Info:    Try loading font information for T1+aess on input line 64.
+LaTeX Font Info:    Try loading font information for T1+aess on input line 65.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 64.
+LaTeX Font Info:    Try loading font information for U+msa on input line 65.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 64.
+LaTeX Font Info:    Try loading font information for U+msb on input line 65.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-(./CARBayes-concordance.tex)
-Underfull \vbox (badness 1881) has occurred while \output is active []
-
- [1
+(./CARBayes-concordance.tex) [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 81.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 82.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
+Underfull \vbox (badness 1810) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `T1/aer/b/sl' in size <10.95> not available
-(Font)              Font shape `T1/aer/bx/sl' tried instead on input line 84.
+(Font)              Font shape `T1/aer/bx/sl' tried instead on input line 85.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 2 []
@@ -456,20 +455,20 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [3]
-LaTeX Font Info:    Try loading font information for TS1+aer on input line 109.
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 110.
 
  (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
-(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 109.
+(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 110.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 4 []
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
 
  []
 
@@ -479,12 +478,12 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
@@ -494,7 +493,7 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 206--207
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
@@ -504,7 +503,7 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 239--240
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 
  []
 
@@ -514,7 +513,7 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [8]
-Overfull \hbox (5.32695pt too wide) in paragraph at lines 241--242
+Overfull \hbox (5.32695pt too wide) in paragraph at lines 242--243
 \T1/aer/m/n/10.95 gamma prior dis-tri-bu-tion, where the de-fault spec-i-fi-ca-
 tion is $\OML/cmm/m/it/10.95 ^^W[] \OMS/cmsy/m/n/10.95 ^^X []\OT1/cmr/m/n/10.95
  (1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/
@@ -522,17 +521,17 @@ tion is $\OML/cmm/m/it/10.95 ^^W[] \OMS/cmsy/m/n/10.95 ^^X []\OT1/cmr/m/n/10.95
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--251
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 252--254
+Underfull \hbox (badness 10000) in paragraph at lines 253--255
 
  []
 
@@ -545,29 +544,29 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 .10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.284 \begin{eqnarray}
+l.285 \begin{eqnarray}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.284 \begin{eqnarray}
+l.285 \begin{eqnarray}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.284 \begin{eqnarray}
+l.285 \begin{eqnarray}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.284 \begin{eqnarray}
+l.285 \begin{eqnarray}
                       
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
 
  []
 
 
-Overfull \hbox (5.32695pt too wide) in paragraph at lines 297--298
+Overfull \hbox (5.32695pt too wide) in paragraph at lines 298--299
 \T1/aer/m/n/10.95 gamma prior dis-tri-bu-tion, where the de-fault spec-i-fi-ca-
 tion is $\OML/cmm/m/it/10.95 ^^W[] \OMS/cmsy/m/n/10.95 ^^X []\OT1/cmr/m/n/10.95
  (1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/
@@ -575,7 +574,7 @@ tion is $\OML/cmm/m/it/10.95 ^^W[] \OMS/cmsy/m/n/10.95 ^^X []\OT1/cmr/m/n/10.95
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 302--303
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
@@ -593,7 +592,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [11]
-Overfull \hbox (24.45966pt too wide) in paragraph at lines 340--341
+Overfull \hbox (24.45966pt too wide) in paragraph at lines 341--342
 []\T1/aer/m/n/10.95 The soft-ware can fit seven mod-els: \T1/aett/m/n/10.95 S.g
 lm()\T1/aer/m/n/10.95 , \T1/aett/m/n/10.95 S.CARbym()\T1/aer/m/n/10.95 , \T1/ae
 tt/m/n/10.95 S.CARleroux()\T1/aer/m/n/10.95 , \T1/aett/m/n/10.95 S.CARdissimila
@@ -601,7 +600,7 @@ rity()
  []
 
 
-Overfull \hbox (32.35724pt too wide) in paragraph at lines 345--346
+Overfull \hbox (32.35724pt too wide) in paragraph at lines 346--347
 []\T1/aett/m/n/10.95 family \T1/aer/m/n/10.95 - The like-li-hood model which mu
 st be one of \T1/aett/m/n/10.95 "binomial"\T1/aer/m/n/10.95 , \T1/aett/m/n/10.9
 5 "gaussian"\T1/aer/m/n/10.95 , \T1/aett/m/n/10.95 "multinomial"\T1/aer/m/n/10.
@@ -614,7 +613,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [12]
-Overfull \hbox (1.72365pt too wide) in paragraph at lines 380--381
+Overfull \hbox (1.72365pt too wide) in paragraph at lines 381--382
 []\T1/aett/m/n/10.95 modelfit \T1/aer/m/n/10.95 - Model fit cri-te-ria in-clud-
 ing the De-viance In-for-ma-tion Cri-te-rion (DIC, [][]Spiegel-
  []
@@ -625,7 +624,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [13]
-Overfull \hbox (16.98924pt too wide) in paragraph at lines 384--385
+Overfull \hbox (16.98924pt too wide) in paragraph at lines 385--386
 []\T1/aett/m/n/10.95 localised.structure \T1/aer/m/n/10.95 - This el-e-ment is 
 \T1/aett/m/n/10.95 NULL \T1/aer/m/n/10.95 ex-cept for the mod-els \T1/aett/m/n/
 10.95 S.CARdissimilarity()
@@ -637,14 +636,14 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [14]
-Overfull \hbox (1.80229pt too wide) in paragraph at lines 425--426
+Overfull \hbox (1.80229pt too wide) in paragraph at lines 426--427
 \T1/aer/m/n/10.95 the sec-ond line of the above code. The \T1/aett/m/n/10.95 da
 ta.combined \T1/aer/m/n/10.95 ob-ject is a \T1/aett/m/n/10.95 SpatialPolygonsDa
 taFrame
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 453--454
+Underfull \hbox (badness 10000) in paragraph at lines 454--455
 
  []
 
@@ -654,7 +653,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 500--501
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
 
  []
 
@@ -664,10 +663,10 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [16]
-<map1.png, id=411, 1035.87pt x 696.6025pt>
+<map1.png, id=412, 1035.87pt x 696.6025pt>
 File: map1.png Graphic file (type png)
 <use map1.png>
-Package pdftex.def Info: map1.png  used on input line 504.
+Package pdftex.def Info: map1.png  used on input line 505.
 (pdftex.def)             Requested size: 354.12434pt x 238.13849pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -690,10 +689,10 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [20]
-<crimeplot.png, id=446, 1035.87pt x 633.36626pt>
+<crimeplot.png, id=447, 1035.87pt x 633.36626pt>
 File: crimeplot.png Graphic file (type png)
 <use crimeplot.png>
-Package pdftex.def Info: crimeplot.png  used on input line 674.
+Package pdftex.def Info: crimeplot.png  used on input line 675.
 (pdftex.def)             Requested size: 354.12434pt x 216.52074pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -706,10 +705,10 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [22]
-<map2.png, id=466, 1035.87pt x 693.59125pt>
+<map2.png, id=467, 1035.87pt x 693.59125pt>
 File: map2.png Graphic file (type png)
 <use map2.png>
-Package pdftex.def Info: map2.png  used on input line 755.
+Package pdftex.def Info: map2.png  used on input line 756.
 (pdftex.def)             Requested size: 354.12434pt x 237.10907pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -717,7 +716,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [23 <./map2.png>]
-Overfull \hbox (0.3704pt too wide) in paragraph at lines 775--776
+Overfull \hbox (0.3704pt too wide) in paragraph at lines 776--777
 []\T1/aer/m/n/10.95 Let the ob-served and ex-pected num-bers of hos-pi-tal ad-m
 is-sions be de-noted by $\OT1/cmr/bx/n/10.95 Y \OT1/cmr/m/n/10.95 = (\OML/cmm/m
 /it/10.95 Y[]; [] ; Y[]\OT1/cmr/m/n/10.95 )$
@@ -734,10 +733,10 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [25]
-<map3.png, id=492, 1035.87pt x 693.59125pt>
+<map3.png, id=493, 1035.87pt x 693.59125pt>
 File: map3.png Graphic file (type png)
 <use map3.png>
-Package pdftex.def Info: map3.png  used on input line 857.
+Package pdftex.def Info: map3.png  used on input line 858.
 (pdftex.def)             Requested size: 354.12434pt x 237.10907pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -768,25 +767,25 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [30])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 874.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 875.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 31
  []
 
 [31]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 874.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 875.
  (./CARBayes.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 874.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 874.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 875.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 875.
 Package rerunfilecheck Info: File `CARBayes.out' has not changed.
 (rerunfilecheck)             Checksum: 50F265D0ED89AB76D2A24A79893B0EB1;2878.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 874.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 875.
  ) 
 Here is how much of TeX's memory you used:
- 7525 strings out of 492982
- 110850 string characters out of 6132527
- 191318 words of memory out of 5000000
+ 7526 strings out of 492982
+ 110856 string characters out of 6132527
+ 191355 words of memory out of 5000000
  10771 multiletter control sequences out of 15000+600000
  59883 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -814,10 +813,10 @@ ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
 ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive
 /2017/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on CARBayes.pdf (31 pages, 2035936 bytes).
+Output written on CARBayes.pdf (31 pages, 2036085 bytes).
 PDF statistics:
- 656 PDF objects out of 1000 (max. 8388607)
- 586 compressed objects within 6 object streams
- 148 named destinations out of 1000 (max. 500000)
+ 657 PDF objects out of 1000 (max. 8388607)
+ 587 compressed objects within 6 object streams
+ 149 named destinations out of 1000 (max. 500000)
  201 words of extra memory for PDF output out of 10000 (max. 10000000)
 
