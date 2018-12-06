@@ -57,7 +57,7 @@ fitted <- as.numeric(X.standardised %*% beta) + offset
 n.keep <- floor((n.sample - burnin)/thin)
 samples.beta <- array(NA, c(n.keep, p))
 samples.nu2 <- array(NA, c(n.keep, 1))
-samples.like <- array(NA, c(n.keep, K))
+samples.loglike <- array(NA, c(n.keep, K))
 samples.fitted <- array(NA, c(n.keep, K))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -84,7 +84,7 @@ data.precision.beta <- t(X.standardised) %*% X.standardised
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -132,9 +132,7 @@ data.precision.beta <- t(X.standardised) %*% X.standardised
     ## Calculate the deviance
     #########################
     fitted <- as.numeric(X.standardised %*% beta) + offset
-    deviance.all <- dnorm(Y, mean = fitted, sd = rep(sqrt(nu2),K), log=TRUE)
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)  
+    loglike <- dnorm(Y, mean = fitted, sd = rep(sqrt(nu2),K), log=TRUE)
         
         
         
@@ -146,7 +144,7 @@ data.precision.beta <- t(X.standardised) %*% X.standardised
         ele <- (j - burnin) / thin
         samples.beta[ele, ] <- beta
         samples.nu2[ele, ] <- nu2
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- fitted
             if(n.miss>0) samples.Y[ele, ] <- Y.DA[which.miss==0]
         }else
@@ -167,7 +165,7 @@ data.precision.beta <- t(X.standardised) %*% X.standardised
 ##### end timer
     if(verbose)
     {
-    cat("\nSummarising results")
+    cat("\nSummarising results.")
     close(progressBar)
     }else
     {}
@@ -190,7 +188,7 @@ deviance.fitted <- -2 * sum(dnorm(Y, mean = fitted.mean, sd = rep(sqrt(nu2.mean)
 
     
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)      
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)      
     
 
 #### transform the parameters back to the origianl covariate scale.
@@ -232,7 +230,7 @@ samples <- list(beta=samples.beta.orig, nu2=mcmc(samples.nu2), fitted=mcmc(sampl
     if(verbose)
     {
         b<-proc.time()
-        cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+        cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
     return(results)

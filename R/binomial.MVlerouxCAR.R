@@ -138,7 +138,7 @@ samples.beta <- array(NA, c(n.keep, J*p))
 samples.phi <- array(NA, c(n.keep, N.all))
 samples.Sigma <- array(NA, c(n.keep, J, J))
     if(!fix.rho) samples.rho <- array(NA, c(n.keep, 1))
-samples.like <- array(NA, c(n.keep, N.all))
+samples.loglike <- array(NA, c(n.keep, N.all))
 samples.fitted <- array(NA, c(n.keep, N.all))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -159,7 +159,7 @@ Sigma.post.df <- prior.Sigma.df + K
 #### Set up the spatial quantities
 ##################################
 #### CAR quantities    
-W.quants <- common.Wcheckformat.leroux(W, K, fix.rho, rho)
+W.quants <- common.Wcheckformat(W)
 W <- W.quants$W
 W.triplet <- W.quants$W.triplet
 n.triplet <- W.quants$n.triplet
@@ -202,7 +202,7 @@ trials.vec <- as.numeric(t(trials))
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -314,9 +314,7 @@ trials.vec <- as.numeric(t(trials))
     lp <- regression + phi + offset
     prob <- exp(lp)  / (1 + exp(lp))
     fitted <- trials * prob
-    deviance.all <- dbinom(x=as.numeric(t(Y)), size=as.numeric(t(trials)), prob=as.numeric(t(prob)), log=TRUE)
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)
+    loglike <- dbinom(x=as.numeric(t(Y)), size=as.numeric(t(trials)), prob=as.numeric(t(prob)), log=TRUE)
 
      
     
@@ -330,7 +328,7 @@ trials.vec <- as.numeric(t(trials))
         samples.phi[ele, ] <- as.numeric(t(phi))
         samples.Sigma[ele, , ] <- Sigma
             if(!fix.rho) samples.rho[ele, ] <- rho
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- as.numeric(t(fitted))
             if(n.miss>0) samples.Y[ele, ] <- Y.DA[miss.locator]
         }else
@@ -382,7 +380,7 @@ trials.vec <- as.numeric(t(trials))
 ##### end timer
     if(verbose)
     {
-    cat("\nSummarising results")
+    cat("\nSummarising results.")
     close(progressBar)
     }else
     {}
@@ -417,7 +415,7 @@ deviance.fitted <- -2 * sum(dbinom(x=as.numeric(t(Y)), size=as.numeric(t(trials)
 
 
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
     
 
 #### transform the parameters back to the origianl covariate scale.
@@ -500,7 +498,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
 return(results)

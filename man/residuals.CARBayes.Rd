@@ -7,7 +7,7 @@
 }
 \description{
     This function takes a CARBayes object and returns a set of residuals. The 
-    allowable types of residual are "response" (raw) or "pearson" (the default).
+    allowable types of residual are "response" (raw) and "pearson" (the default).
     In each case the fitted values are based on posterior means.
 }
 

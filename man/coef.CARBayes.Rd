@@ -7,7 +7,7 @@
 }
 \description{
     This function takes a CARBayes object and returns the vector of estimated
-    regression coefficients.
+    regression coefficients (posterior medians).
 }
 
 \usage{

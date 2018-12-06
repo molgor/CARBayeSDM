@@ -117,7 +117,7 @@ samples.tau2 <- array(NA, c(n.keep, 1))
 samples.Z <- array(NA, c(n.keep, K))
 samples.lambda <- array(NA, c(n.keep, G))
 samples.delta <- array(NA, c(n.keep, 1))
-samples.like <- array(NA, c(n.keep, K))
+samples.loglike <- array(NA, c(n.keep, K))
 samples.fitted <- array(NA, c(n.keep, K))
 
 
@@ -144,7 +144,7 @@ tau2.posterior.shape <- prior.tau2[1] + 0.5 * K
 #### Set up the spatial quantities
 ##################################
 #### CAR quantities
-W.quants <- common.Wcheckformat(W, K)
+W.quants <- common.Wcheckformat(W)
 W <- W.quants$W
 W.triplet <- W.quants$W.triplet
 n.triplet <- W.quants$n.triplet
@@ -160,7 +160,7 @@ W.begfin <- W.quants$W.begfin
 #### Start timer
      if(verbose)
      {
-     cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+     cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
      progressBar <- txtProgressBar(style = 3)
      percentage.points<-round((1:100/100)*n.sample)
      }else
@@ -285,9 +285,7 @@ W.begfin <- W.quants$W.begfin
     #########################
     lp <- lambda[Z] + phi + regression.vec + offset
     fitted <- exp(lp)
-    deviance.all <- dpois(x=as.numeric(Y), lambda=fitted, log=TRUE)
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)  
+    loglike <- dpois(x=as.numeric(Y), lambda=fitted, log=TRUE)
 
 
          
@@ -302,7 +300,7 @@ W.begfin <- W.quants$W.begfin
         samples.tau2[ele, ] <- tau2
         samples.Z[ele, ] <- Z
         samples.delta[ele, ] <- delta
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- fitted
             if(!is.null(X)) samples.beta[ele, ] <- beta    
         }else
@@ -357,7 +355,7 @@ W.begfin <- W.quants$W.begfin
 ##### end timer
     if(verbose)
     {
-    cat("\nSummarising results")
+    cat("\nSummarising results.")
     close(progressBar)
     }else
     {}
@@ -402,7 +400,7 @@ deviance.fitted <- -2 * sum(dpois(x=Y, lambda=fitted.mean, log=TRUE))
 
      
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
 
   
 #### transform the parameters back to the origianl covariate scale.
@@ -458,7 +456,7 @@ residuals <- data.frame(response=response.residuals, pearson=pearson.residuals)
 model.string <- c("Likelihood model - Poisson (log link function)", "\nRandom effects  model - Localised CAR model\n")
 if(is.null(X)) samples.beta.orig = NA
 
-samples <- list(beta=mcmc(samples.beta.orig), phi=mcmc(samples.phi), lambda=mcmc(samples.lambda), Z=mcmc(samples.Z), tau2=mcmc(samples.tau2), delta=mcmc(samples.delta), fitted=mcmc(samples.fitted))          
+samples <- list(beta=mcmc(samples.beta.orig), phi=mcmc(samples.phi), lambda=mcmc(samples.lambda), Z=mcmc(samples.Z), tau2=mcmc(samples.tau2), delta=mcmc(samples.delta), fitted=mcmc(samples.fitted), Y=NA)          
 results <- list(summary.results=summary.results, samples=samples, fitted.values=fitted.values, residuals=residuals, modelfit=modelfit, accept=accept.final, localised.structure=mean.Z,  formula=formula, model=model.string, X=X)
 class(results) <- "CARBayes"
 
@@ -466,7 +464,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
 return(results)

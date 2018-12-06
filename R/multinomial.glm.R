@@ -101,7 +101,7 @@ regression <- X.standardised %*% beta
 #### Matrices to store samples    
 n.keep <- floor((n.sample - burnin)/thin)
 samples.beta <- array(NA, c(n.keep, (J-1)*p))
-samples.like <- array(NA, c(n.keep, K.present))
+samples.loglike <- array(NA, c(n.keep, K.present))
 samples.fitted <- array(NA, c(n.keep, N.all))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -118,7 +118,7 @@ proposal.sd.beta <- rep(0.01, (J-1))
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -184,10 +184,8 @@ proposal.sd.beta <- rep(0.01, (J-1))
     lp <- cbind(rep(0,K), lp)
     prob <- exp(lp)  / apply(exp(lp),1,sum)
     fitted <- prob * trials
-    deviance.all <-  const.like + apply(Y[which.miss.row==0, ] * log(prob[which.miss.row==0, ]),1,sum)
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)
-        
+    loglike <-  const.like + apply(Y[which.miss.row==0, ] * log(prob[which.miss.row==0, ]),1,sum)
+
         
         
     ###################
@@ -197,7 +195,7 @@ proposal.sd.beta <- rep(0.01, (J-1))
         {
         ele <- (j - burnin) / thin
         samples.beta[ele, ] <- as.numeric(beta)
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- as.numeric(t(fitted))
             if(n.miss>0) samples.Y[ele, ] <- t(Y.DA)[is.na(t(Y))]
         }else
@@ -241,7 +239,7 @@ proposal.sd.beta <- rep(0.01, (J-1))
     ##### end timer
     if(verbose)
     {
-        cat("\nSummarising results")
+        cat("\nSummarising results.")
         close(progressBar)
     }else
     {}
@@ -266,7 +264,7 @@ deviance.fitted <- -2* sum(const.like + apply(Y[which.miss.row==0, ] * log(mean.
 
 
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
 
     
 #### transform the parameters back to the origianl covariate scale.
@@ -326,7 +324,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
     return(results)

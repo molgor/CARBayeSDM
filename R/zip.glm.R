@@ -150,7 +150,7 @@ n.keep <- floor((n.sample - burnin)/thin)
 samples.beta <- array(NA, c(n.keep, p))
 samples.delta <- array(NA, c(n.keep, q))    
 samples.Z <- array(NA, c(n.keep, K))    
-samples.like <- array(NA, c(n.keep, K))
+samples.loglike <- array(NA, c(n.keep, K))
 samples.fitted <- array(NA, c(n.keep, K))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -169,7 +169,7 @@ proposal.sd.delta <- 0.01
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -248,9 +248,8 @@ proposal.sd.delta <- 0.01
     fitted.zip <- fitted * (1-omega)
     temp <- rep(0,K)
     temp[Z==1] <- log(omega[Z==1])
-    deviance.all <- temp + (1-Z) * (log(1-omega) + dpois(x=as.numeric(Y), lambda=fitted, log=T))
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)  
+    loglike <- temp + (1-Z) * (log(1-omega) + dpois(x=as.numeric(Y), lambda=fitted, log=T))
+
         
         
         
@@ -263,7 +262,7 @@ proposal.sd.delta <- 0.01
         samples.beta[ele, ] <- beta
         samples.delta[ele, ] <- delta
         samples.Z[ele, ] <- Z
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- fitted.zip
             if(n.miss>0) samples.Y[ele, ] <- Y.DA[which.miss==0]
         }else
@@ -316,7 +315,7 @@ proposal.sd.delta <- 0.01
 #### end timer
     if(verbose)
     {
-    cat("\nSummarising results")
+    cat("\nSummarising results.")
     close(progressBar)
     }else
     {}
@@ -347,7 +346,7 @@ deviance.fitted <- -2 * sum(mean.deviance.all, na.rm=TRUE)
 
 
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
 
 
 #### transform the parameters back to the origianl covariate scale.
@@ -396,7 +395,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
 return(results)

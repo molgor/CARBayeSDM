@@ -137,7 +137,7 @@ samples.beta <- array(NA, c(n.keep, (J-1)*p))
 samples.phi <- array(NA, c(n.keep, N.re))
 samples.Sigma <- array(NA, c(n.keep, (J-1), (J-1)))
     if(!fix.rho) samples.rho <- array(NA, c(n.keep, 1))
-samples.like <- array(NA, c(n.keep, K.present))
+samples.loglike <- array(NA, c(n.keep, K.present))
 samples.fitted <- array(NA, c(n.keep, N.all))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -158,7 +158,7 @@ Sigma.post.df <- prior.Sigma.df + K
 #### Set up the spatial quantities
 ##################################
 #### CAR quantities    
-W.quants <- common.Wcheckformat.leroux(W, K, fix.rho, rho)
+W.quants <- common.Wcheckformat(W)
 W <- W.quants$W
 W.triplet <- W.quants$W.triplet
 n.triplet <- W.quants$n.triplet
@@ -197,7 +197,7 @@ n.islands <- max(W.islands$nc)
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -318,10 +318,8 @@ n.islands <- max(W.islands$nc)
     lp <- cbind(rep(0,K), lp)
     prob <- exp(lp)  / apply(exp(lp),1,sum)
     fitted <- prob * trials
-    deviance.all <-  const.like + apply(Y[which.miss.row==0, ] * log(prob[which.miss.row==0, ]),1,sum)
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)
-        
+    loglike <-  const.like + apply(Y[which.miss.row==0, ] * log(prob[which.miss.row==0, ]),1,sum)
+
         
         
     ###################
@@ -334,7 +332,7 @@ n.islands <- max(W.islands$nc)
         samples.phi[ele, ] <- as.numeric(t(phi))
         samples.Sigma[ele, , ] <- Sigma
             if(!fix.rho) samples.rho[ele, ] <- rho
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- as.numeric(t(fitted))
             if(n.miss>0) samples.Y[ele, ] <- t(Y.DA)[is.na(t(Y))]
         }else
@@ -386,7 +384,7 @@ n.islands <- max(W.islands$nc)
     ##### end timer
     if(verbose)
     {
-        cat("\nSummarising results")
+        cat("\nSummarising results.")
         close(progressBar)
     }else
     {}
@@ -421,7 +419,7 @@ deviance.fitted <- -2* sum(const.like + apply(Y[which.miss.row==0, ] * log(mean.
 
 
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
 
 
 #### transform the parameters back to the origianl covariate scale.
@@ -505,7 +503,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
     return(results)

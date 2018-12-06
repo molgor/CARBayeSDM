@@ -182,7 +182,7 @@ samples.tau2 <- array(NA, c(n.keep, 1))
     if(!fix.rho) samples.rho <- array(NA, c(n.keep, 1))
 samples.delta <- array(NA, c(n.keep, q))    
 samples.Z <- array(NA, c(n.keep, K))    
-samples.like <- array(NA, c(n.keep, K))
+samples.loglike <- array(NA, c(n.keep, K))
 samples.fitted <- array(NA, c(n.keep, K))
     if(n.miss>0) samples.Y <- array(NA, c(n.keep, n.miss))
     
@@ -201,7 +201,7 @@ tau2.posterior.shape <- prior.tau2[1] + 0.5 * K
 #### Set up the spatial quantities
 ##################################
 #### CAR quantities
-W.quants <- common.Wcheckformat.leroux(W, K, fix.rho, rho)
+W.quants <- common.Wcheckformat(W)
 W <- W.quants$W
 W.triplet <- W.quants$W.triplet
 n.triplet <- W.quants$n.triplet
@@ -237,7 +237,7 @@ n.islands <- max(W.islands$nc)
 #### Start timer
     if(verbose)
     {
-    cat("Generating", n.keep, "post burnin and thinned (if requested) samples\n", sep = " ")
+    cat("Generating", n.keep, "post burnin and thinned (if requested) samples.\n", sep = " ")
     progressBar <- txtProgressBar(style = 3)
     percentage.points<-round((1:100/100)*n.sample)
     }else
@@ -378,9 +378,7 @@ n.islands <- max(W.islands$nc)
     fitted.zip <- fitted * (1-omega)    
     temp <- rep(0,K)
     temp[Z==1] <- log(omega[Z==1])
-    deviance.all <- temp + (1-Z) * (log(1-omega) + dpois(x=as.numeric(Y), lambda=fitted, log=T))
-    like <- exp(deviance.all)
-    deviance <- -2 * sum(deviance.all, na.rm=TRUE)  
+    loglike <- temp + (1-Z) * (log(1-omega) + dpois(x=as.numeric(Y), lambda=fitted, log=T))
 
         
         
@@ -396,7 +394,7 @@ n.islands <- max(W.islands$nc)
             if(!fix.rho) samples.rho[ele, ] <- rho
         samples.delta[ele, ] <- delta
         samples.Z[ele, ] <- Z
-        samples.like[ele, ] <- like
+        samples.loglike[ele, ] <- loglike
         samples.fitted[ele, ] <- fitted.zip
             if(n.miss>0) samples.Y[ele, ] <- Y.DA[which.miss==0]
         }else
@@ -451,7 +449,7 @@ n.islands <- max(W.islands$nc)
 #### end timer
     if(verbose)
     {
-    cat("\nSummarising results")
+    cat("\nSummarising results.")
     close(progressBar)
     }else
     {}
@@ -493,7 +491,7 @@ deviance.fitted <- -2 * sum(mean.deviance.all, na.rm=TRUE)
 
 
 #### Model fit criteria
-modelfit <- common.modelfit(samples.like, deviance.fitted)
+modelfit <- common.modelfit(samples.loglike, deviance.fitted)
 
 
 #### transform the parameters back to the origianl covariate scale.
@@ -557,7 +555,7 @@ class(results) <- "CARBayes"
     if(verbose)
     {
     b<-proc.time()
-    cat(" finished in ", round(b[3]-a[3], 1), "seconds")
+    cat("Finished in ", round(b[3]-a[3], 1), "seconds.\n")
     }else
     {}
 return(results)

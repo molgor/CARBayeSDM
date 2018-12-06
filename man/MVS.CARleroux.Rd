@@ -108,8 +108,9 @@ fixed at if it should not be estimated. If this arugment is NULL then rho is
 estimated in the model.
 }
 \item{MALA}{
-        Logical, should the function use MALA (TRUE, default) or simple random walk (FALSE) 
-        updates for the random effects. Not applicable if family="gaussian" or "multinomial".   
+        Logical, should the function use Metropolis adjusted Langevin algorithm 
+        (MALA) updates (TRUE, default) or simple random walk (FALSE) updates for 
+        the random effects. Not applicable if family="gaussian" or "multinomial".   
 }
 \item{verbose}{
 Logical, should the function update the user on its progress.  

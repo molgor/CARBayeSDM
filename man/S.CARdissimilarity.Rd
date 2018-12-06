@@ -84,9 +84,10 @@ prior for nu2. Defaults to c(1, 0.01) and only used if family="Gaussian".
 The prior shape and scale in the form of c(shape, scale) for an Inverse-Gamma(shape, scale) 
 prior for tau2. Defaults to c(1, 0.01).  
 }
-    \item{MALA}{
-        Logical, should the function use MALA (TRUE, default) or simple random walk (FALSE) 
-        updates for the random effects. Not applicable if family="gaussian".   
+\item{MALA}{
+Logical, should the function use Metropolis adjusted Langevin algorithm (MALA) 
+    updates (TRUE, default) or simple random walk (FALSE) updates for the random 
+    effects. Not applicable if family="gaussian".   
 }
   \item{verbose}{
 Logical, should the function update the user on its progress.  

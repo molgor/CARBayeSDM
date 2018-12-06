@@ -44,13 +44,15 @@ contain missing (NA) values.
 A one-sided formula object with no response variable (left side of the "~") 
 needed, specifying the covariates in the logistic regression model for 
 modelling the probability of an observation being a structural zero. Each 
-covariate (or an offset) needs to be a vector of length K*1.
+covariate (or an offset) needs to be a vector of length K*1. Only required for 
+zero-inflated Poisson models.
 }
   \item{family}{
 One of either "binomial", "gaussian", "poisson" or "zip", which respectively 
 specify a binomial likelihood model with a logistic link function, 
 a Gaussian likelihood model with an identity link function, a Poisson likelihood 
-model with a log link function, or a zip model with a log link function. 
+model with a log link function, or a zero-inflated Poisson model with a log link 
+function. 
 }
   \item{data}{
 An optional data.frame containing the  variables in the formula.
@@ -107,8 +109,9 @@ fixed at if it should not be estimated. If this arugment is NULL then rho is
 estimated in the model.
 }
     \item{MALA}{
-        Logical, should the function use MALA (TRUE, default) or simple random walk (FALSE) 
-        updates for the random effects. Not applicable if family="gaussian".   
+        Logical, should the function use Metropolis adjusted Langevin algorithm 
+        (MALA) updates (TRUE, default) or simple random walk (FALSE) updates for 
+        the random effects. Not applicable if family="gaussian".   
 }
   \item{verbose}{
 Logical, should the function update the user on its progress.  

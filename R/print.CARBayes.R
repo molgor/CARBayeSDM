@@ -70,7 +70,7 @@ print.CARBayes <- function(x,...)
         cat("#### Model fitted\n")
         cat("#################\n")
         cat(x$model)
-            if(length(x$formula)==1)
+            if(class(x$formula)=="formula")
             {
             cat("Regression equation - ")
             print(x$formula)    
@@ -94,7 +94,6 @@ print.CARBayes <- function(x,...)
         print(x$summary.results)
         cat("\nDIC = ", x$modelfit[1], "     ", "p.d = ", x$modelfit[2], "     ", "LMPL = ", round(x$modelfit[5],2),"\n")
      }
-        
 return(invisible(x))        
 }
 

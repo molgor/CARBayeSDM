@@ -83,8 +83,9 @@ prior for tau2. Defaults to c(1, 0.01).
 The prior maximum for the cluster smoothing parameter delta. Defaults to 10.  
 }
     \item{MALA}{
-        Logical, should the function use MALA (TRUE, default) or simple random walk (FALSE) 
-        updates for the random effects.   
+        Logical, should the function use Metropolis adjusted Langevin algorithm 
+        (MALA) updates (TRUE, default) or simple random walk (FALSE) updates for 
+        the random effects.   
 }
   \item{verbose}{
 Logical, should the function update the user on its progress.  

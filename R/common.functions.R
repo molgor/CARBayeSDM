@@ -12,7 +12,6 @@
 # common.prior.var.check - check the prior entered for variance parameters.
 # common.prior.varmat.check - check the prior entered for variance matrix parameters.
 # common.verbose - check the verbose argument.
-# common.Wcheckformat.leroux - check the W matrix for the leroux model.
 # common.Wcheckformat - check the W matrix.
 # common.Wcheckformat.disimilarity - check the W matrix for the dissimilarity model.
 
@@ -404,23 +403,28 @@ common.frame.localised <- function(formula, data, family, trials)
 
 
 # Compute the DIC. WAIC,LMPL and loglikelihood
-common.modelfit <- function(samples.like, deviance.fitted)
+common.modelfit <- function(samples.loglike, deviance.fitted)
 {
     #### WAIC
-    LPPD <- sum(log(apply(samples.like,2,mean)), na.rm=TRUE)
-    p.w <- sum(apply(log(samples.like),2,var), na.rm=TRUE)
-    WAIC <- -2 * (LPPD - p.w)
+    p.w <- sum(apply(samples.loglike,2, var), na.rm=TRUE)
+    mean.like <- apply(exp(samples.loglike),2,mean)
+    mean.min <- min(mean.like[mean.like>0])
+    mean.like[mean.like==0] <- mean.min
+    lppd <- sum(log(mean.like), na.rm=TRUE)
+    WAIC <- -2 * (lppd - p.w)
     
     
     #### Compute the Conditional Predictive Ordinate
-    CPO <- 1/apply(1/samples.like, 2, mean)
+    CPO <- 1/apply(exp(-samples.loglike), 2, mean)
+    mean.min <- min(CPO[CPO>0])
+    CPO[CPO==0] <- mean.min
     LMPL <- sum(log(CPO), na.rm=TRUE)    
     
     
     #### DIC
-    mean.deviance <- mean(-2 * apply(log(samples.like), 1, sum, na.rm=T))   
+    mean.deviance <- -2 * sum(samples.loglike, na.rm=TRUE) /   nrow(samples.loglike)
     p.d <- mean.deviance - deviance.fitted
-    DIC <- 2 * mean.deviance - deviance.fitted
+    DIC <- deviance.fitted + 2 * p.d
     
     
     #### loglikelihood
@@ -482,7 +486,7 @@ common.verbose <- function(verbose)
     
     if(verbose)
     {
-        cat("Setting up the model\n")
+        cat("Setting up the model.\n")
         a<-proc.time()
     }else{
         a <- 1    
@@ -492,28 +496,16 @@ common.verbose <- function(verbose)
 
 
 
-#### Check the W matrix - Leroux model
-common.Wcheckformat.leroux <- function(W, n, fix.rho, rho)
+#### Check the W matrix
+common.Wcheckformat <- function(W)
 {
-    #### If fix.rho=TRUE and rho=0 set up a dummy W matrix    
-    if(fix.rho & rho==0)
-    {
-        ## Set up a dummy W matrix to use in the code as it will not affect the results
-        W <- array(0, c(n,n))
-        for(r in 2:n)
-        {
-            W[(r-1), r] <- 1   
-            W[r, (r-1)] <- 1
-        }
-    }else
-    {
-    }        
+    #### Check W is a matrix of the correct dimension
+    if(!is.matrix(W)) stop("W is not a matrix.", call.=FALSE)
+    n <- nrow(W)
+    if(ncol(W)!= n) stop("W is not a square matrix.", call.=FALSE)    
     
     
     #### Check validity of inputed W matrix
-    if(!is.matrix(W)) stop("W is not a matrix.", call.=FALSE)
-    if(nrow(W)!= n) stop("W has the wrong number of rows.", call.=FALSE)
-    if(ncol(W)!= n) stop("W has the wrong number of columns.", call.=FALSE)
     if(sum(is.na(W))>0) stop("W has missing 'NA' values.", call.=FALSE)
     if(!is.numeric(W)) stop("W has non-numeric values.", call.=FALSE)
     if(min(W)<0) stop("W has negative elements.", call.=FALSE)
@@ -550,64 +542,26 @@ common.Wcheckformat.leroux <- function(W, n, fix.rho, rho)
     
     
     #### Return the critical quantities
-    results <- list(W=W, W.triplet=W.triplet, n.triplet=n.triplet, W.triplet.sum=W.triplet.sum, n.neighbours=n.neighbours, W.begfin=W.begfin)
+    results <- list(W=W, W.triplet=W.triplet, n.triplet=n.triplet, W.triplet.sum=W.triplet.sum, n.neighbours=n.neighbours, W.begfin=W.begfin, n=n)
     return(results)   
 }
-
-
-
-#### Check the W matrix - not Leroux model
-common.Wcheckformat <- function(W, n)
-{
-    #### Check validity of inputed W matrix
-    if(!is.matrix(W)) stop("W is not a matrix.", call.=FALSE)
-    if(nrow(W)!= n) stop("W has the wrong number of rows.", call.=FALSE)
-    if(ncol(W)!= n) stop("W has the wrong number of columns.", call.=FALSE)
-    if(sum(is.na(W))>0) stop("W has missing 'NA' values.", call.=FALSE)
-    if(!is.numeric(W)) stop("W has non-numeric values.", call.=FALSE)
-    if(min(W)<0) stop("W has negative elements.", call.=FALSE)
-    if(sum(W!=t(W))>0) stop("W is not symmetric.", call.=FALSE)
-    if(min(apply(W, 1, sum))==0) stop("W has some areas with no neighbours (one of the row sums equals zero).", call.=FALSE)    
-    
-    
-    #### Create the triplet form
-    W.triplet <- c(NA, NA, NA)
-    for(i in 1:n)
-    {
-        for(j in 1:n)
-        {
-            if(W[i,j]>0)
-            {
-                W.triplet <- rbind(W.triplet, c(i,j, W[i,j]))     
-            }else{}
-        }
-    }
-    W.triplet <- W.triplet[-1, ]     
-    n.triplet <- nrow(W.triplet) 
-    W.triplet.sum <- tapply(W.triplet[ ,3], W.triplet[ ,1], sum)
-    n.neighbours <- tapply(W.triplet[ ,3], W.triplet[ ,1], length)
-    
-    
-    #### Create the start and finish points for W updating
-    W.begfin <- array(NA, c(n, 2))     
-    temp <- 1
-    for(i in 1:n)
-    {
-        W.begfin[i, ] <- c(temp, (temp + n.neighbours[i]-1))
-        temp <- temp + n.neighbours[i]
-    }
-    
-    
-    #### Return the critical quantities
-    results <- list(W=W, W.triplet=W.triplet, n.triplet=n.triplet, W.triplet.sum=W.triplet.sum, n.neighbours=n.neighbours, W.begfin=W.begfin)
-    return(results)   
-}
-
 
 
 #### Check the W matrix - Dissimilarity model
-common.Wcheckformat.disimilarity <- function(W, n)
+common.Wcheckformat.disimilarity <- function(W)
 {
+    #### Check validity of inputed W matrix
+    if(!is.matrix(W)) stop("W is not a matrix.", call.=FALSE)
+    n <- nrow(W)
+    if(ncol(W)!= n) stop("W is not a square matrix.", call.=FALSE)   
+    if(sum(is.na(W))>0) stop("W has missing 'NA' values.", call.=FALSE)
+    if(!is.numeric(W)) stop("W has non-numeric values.", call.=FALSE)
+    if(min(W)<0) stop("W has negative elements.", call.=FALSE)
+    if(sum(W!=t(W))>0) stop("W is not symmetric.", call.=FALSE)
+    if(sum(as.numeric(W)==0) + sum(as.numeric(W)==1) - n^2 !=0) stop("W has non-binary elements", call.=FALSE)
+    if(min(apply(W, 1, sum))==0) stop("W has some areas with no neighbours (one of the row sums equals zero).", call.=FALSE)    
+    
+    
     ## Ensure the W matrix is symmetric
     Wnew <- array(0, c(n,n))
     for(i in 1:n)
@@ -625,20 +579,7 @@ common.Wcheckformat.disimilarity <- function(W, n)
     W <- Wnew  
     n.neighbours <- apply(W, 2, sum)
     spam.W <- as.spam(W)
-    
-    
-    
-    #### Check validity of inputed W matrix
-    if(!is.matrix(W)) stop("W is not a matrix.", call.=FALSE)
-    if(nrow(W)!= n) stop("W has the wrong number of rows.", call.=FALSE)
-    if(ncol(W)!= n) stop("W has the wrong number of columns.", call.=FALSE)
-    if(sum(is.na(W))>0) stop("W has missing 'NA' values.", call.=FALSE)
-    if(!is.numeric(W)) stop("W has non-numeric values.", call.=FALSE)
-    if(min(W)<0) stop("W has negative elements.", call.=FALSE)
-    if(sum(W!=t(W))>0) stop("W is not symmetric.", call.=FALSE)
-    if(sum(as.numeric(W)==0) + sum(as.numeric(W)==1) - n^2 !=0) stop("W has non-binary elements", call.=FALSE)
-    if(min(apply(W, 1, sum))==0) stop("W has some areas with no neighbours (one of the row sums equals zero).", call.=FALSE)    
-    
+
     
     #### Create the triplet form
     W.triplet <- c(NA, NA, NA)
@@ -669,6 +610,6 @@ common.Wcheckformat.disimilarity <- function(W, n)
     
     
     #### Return the critical quantities
-    results <- list(W=W, W.triplet=W.triplet, n.triplet=n.triplet, W.triplet.sum=W.triplet.sum, n.neighbours=n.neighbours, W.begfin=W.begfin, spam.W=spam.W)
+    results <- list(W=W, W.triplet=W.triplet, n.triplet=n.triplet, W.triplet.sum=W.triplet.sum, n.neighbours=n.neighbours, W.begfin=W.begfin, spam.W=spam.W, n=n)
     return(results)   
 }
