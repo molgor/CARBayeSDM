@@ -16,3 +16,4 @@ LazyLoad: yes
 ByteCompile: yes
 URL: http://github.com/duncanplee/CARBayes
 BugReports: http://github.com/duncanplee/CARBayes/issues
+RoxygenNote: 6.1.1.9000
