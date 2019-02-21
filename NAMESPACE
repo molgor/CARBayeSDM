@@ -11,7 +11,8 @@ export(
 	 S.glm,
      summarise.lincomb,
      summarise.samples,
-     test_function
+     test_function,
+     presenceonly.bymCAR
      )
 S3method(print, CARBayes)
 S3method(fitted, CARBayes)
