@@ -1,4 +1,4 @@
-useDynLib(CARBayes, .registration = TRUE)
+useDynLib(CARBayeSDM, .registration = TRUE)
 export(
      combine.data.shapefile,
 	 highlight.borders,
@@ -10,7 +10,8 @@ export(
 	 S.CARmultilevel,
 	 S.glm,
      summarise.lincomb,
-     summarise.samples
+     summarise.samples,
+     test_function
      )
 S3method(print, CARBayes)
 S3method(fitted, CARBayes)

@@ -1,6 +1,6 @@
-\name{CARBayes-package}
-\alias{CARBayes-package}
-\alias{CARBayes}
+\name{CARBayeSDM-package}
+\alias{CARBayeSDM-package}
+\alias{CARBayeSDM}
 \docType{package}
 
 \title{
@@ -38,7 +38,7 @@ An updated vignette using the leaflet package for interactive mapping.
 
 \details{
 \tabular{ll}{
-Package: \tab CARBayes\cr
+Package: \tab CARBayeSDM\cr
 Type: \tab Package\cr
 Version: \tab 5.1.1\cr
 Date: \tab 2018-12-06\cr
@@ -50,7 +50,7 @@ License: \tab GPL (>= 2)\cr
 
 
 \author{
-Maintainer: Duncan Lee <Duncan.Lee@glasgow.ac.uk>
+  Maintainer: Juan Escamilla Molgora <j.escamillamolgora@lancaster.ac.uk>
 }
 
 

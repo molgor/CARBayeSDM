@@ -5,3 +5,5 @@
 src/*.o
 src/*.so
 src/*.dll
+
+data/training_data_sample_puebla_p9_abies_pinophyta_adjmat.npy

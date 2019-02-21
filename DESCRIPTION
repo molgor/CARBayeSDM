@@ -1,4 +1,4 @@
-Package: CARBayes
+Package: CARBayeSDM
 Type: Package
 Title: Spatial Generalised Linear Mixed Models for Areal Unit Data
 Version: 5.1.1
